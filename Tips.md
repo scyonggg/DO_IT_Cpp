@@ -99,4 +99,84 @@ sys.stdin.readline().rstrip()
     print(result)  # [('A', 'A'), ('A', 'B'), ('A', 'C'), ('B', 'B'), ('B', 'C'), ('C', 'C')]
 
 - heapq
-    - 힙 (Heap)
+    - 최소 힙 (Min Heap) 제공. PriorityQueue 라이브러리를 사용할 수 있지만, 코테 환경에서는 보통 heapq가 더 빠르다고 함.
+    - `heapq.heappush()` : 원소 삽입
+    - `heapq.headpop()` : 원소 꺼내기
+    - 힙 정렬 (Heap Sort) 예시
+    ```python
+    import heapq
+
+    def heapsort(iterable):
+        h = []
+        result = []
+        # Insert all elements into heap
+        for value in iterable:
+            heapq.headpush(h, value)
+        # Pop all elements from heap into result
+        for i in range(len(h)):
+            result.append(heapq.headpop(h))
+        return result
+
+    result = heapsort([1, 3, 5, 7, 9, 2, 4, 6, 8, 0])
+    print(result)  # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    ```
+    - 최대 힙 (Max Heap) 쓰려면, 원소의 부호를 임시로 변경하는 방식을 사용해야함.
+    ```python
+    import heapq
+
+    def heapsort(iterable):
+        h = []
+        result = []
+        # Insert all elements into heap
+        for value in iterable:
+            heapq.heappush(h, -value)
+        # Pop all elements from heap into result
+        for value in range(len(h)):
+            result.append(-heapq.heappop(h))
+        return result
+
+    result = heapsort([1, 3, 5, 7, 9, 2, 4, 6, 8, 0])
+    print(result)  # [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+    ```
+
+- collections
+    - 유용한 자료구조 제공. `deque`와 `Counter` 두 가지 자주 씀.
+    - `deque` : 보통 파이썬에서 큐 구현
+        - `popleft()` : 첫 번째 원소 제거
+        - `pop()` : 마지막 원소 제거
+        - `appendleft(x)` : 첫 번째 인덱스에 원소 x 삽입
+        - `append(x)` : 마지막 인덱스에 원소 x 삽입
+    - `Counter` : 등장 횟수를 세는 기능 제공. 리스트와 같은 iterable 객체가 주어졌을 때, 해당 객체 내부의 원소가 몇 번씩 등장했는지를 알려준다.
+    ```python
+    from collections import Counter
+
+    counter = Counter(['red', 'blue', 'red', 'green', 'blue', 'blue'])
+
+    print(counter['blue'])  # 3
+    print(counter['green'])  # 1
+    print(dict(counter))  # {'red': 2, 'blue': 3, 'green': 1}
+    ```
+
+- math
+    - 자주 사용되는 수학적인 기능. 팩토리얼, 제곱근, 최대공약수 등등.
+    - `factorial(x)` : x! 반환
+    ```python
+    import math
+    print(math.factorial(5))  # 120
+    ```
+    - `sqrt(x)` : x의 제곱근 반환
+    ```python
+    import math
+    print(math.sqrt(7))  # 2.645...
+    ```
+    - `gcd(a, b)` : a와 b의 최대 공약수 반환
+    ```python
+    import math
+    print(math.gcd(21, 14))  # 7
+    ```
+    - `math.pi`, `math.e` : 파이 및 자연상수 e 반환
+    ```python
+    import math
+    print(math.pi)
+    print(math.e)
+    ```
